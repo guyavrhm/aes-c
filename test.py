@@ -1,8 +1,4 @@
-# gcc -fPIC -shared -o aes.dll aes.c gmult.c
-
 import ctypes
-import numpy.ctypeslib as ctl
-from numpy.ctypeslib import ndpointer
 import numpy as np
 
 key = np.array(
@@ -15,10 +11,7 @@ key = np.array(
 	dtype=np.uint8
 )
 
-
-so_file = './aes.dll'
-
-lib = ctypes.cdll.LoadLibrary(so_file)
+lib = ctypes.cdll.LoadLibrary('./aes.dll')
 
 aes_init  = lib.aes_init
 aes_init.restype = ctypes.POINTER(ctypes.c_uint8)
@@ -53,5 +46,3 @@ time = stop - start
 print(time)
 
 
-# c = enc(data)
-# print(c.tobytes())
