@@ -1,3 +1,40 @@
+/*
+  Advanced Encryption Standard
+  Rijndael Algorithm
+  
+  @author Guy Avraham
+  
+  
+  All operations in the AES encryption are done in GF(2^8):
+  https://en.wikipedia.org/wiki/Finite_field_arithmetic
+  
+  Addition in GF(2^8)
+  uint8_t gadd(uint8_t a, uint8_t b) {
+      return a^b;
+  }
+  
+  Subtraction in GF(2^8)
+  uint8_t gsub(uint8_t a, uint8_t b) {
+      return a^b;
+  }
+      
+  Multiplication in GF(2^8)
+  Irreducible polynomial x^8 + x^4 + x^3 + x + 1 (0b100011011)
+  uint8_t gmul(uint8_t a, uint8_t b) {
+      uint8_t p = 0, i = 0;
+      while (a != 0) {
+          if (a & 1)
+              p ^= b << i;
+          a >>= 1;
+          i++;
+      }
+      while (bit_length(p) != 9) {
+          p ^= 0x11b << (bit_length(p) - 9);
+      }
+      return p ^ 0x11b;
+  }
+*/
+
 #include "aes.h"
 #include "gmult.h"
 
